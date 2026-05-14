@@ -1,0 +1,33 @@
+version: 1
+
+default_lint:
+  - flake8
+  - mypy
+
+default_tests:
+  - pytest
+
+branches:
+  - pattern: "main"
+    lint:
+      - flake8
+      - mypy
+      - black --check
+    tests:
+      - pytest --cov
+
+  - pattern: "release/*"
+    lint:
+      - flake8
+      - mypy
+    tests:
+      - pytest
+
+  - pattern: "hotfix/*"
+    lint:
+      - flake8
+    tests:
+      - pytest -x
+
+  - pattern: "chore/*"
+    skip: true
